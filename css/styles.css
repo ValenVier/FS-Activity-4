@@ -1,0 +1,163 @@
+/* reset */
+*{
+    margin: 0rem 0rem 0rem 0rem;
+    padding: 0rem 0rem 0rem 0rem;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    color: black;
+    font-size: 1rem;
+}
+
+body{
+    position: relative;
+}
+
+li{
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+button{
+    background: none;
+    border: none;
+}
+
+img{
+    max-width: 100%;
+}
+
+.lnr-list{
+    width: 32px;
+}
+.lnr-store{
+    width: 32px;
+    height: 32px;
+}
+.lnr-redo{
+    width: 32px;
+    height: 32px;
+}
+.lnr-diamond{
+    width: 32px;
+    height: 32px;
+}
+
+/* header */
+.menu{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 1rem 1rem 1rem;
+    height: 4rem;
+    border-bottom: 1px solid black;
+}
+
+.menu__tittle{
+    font-size: 2rem;
+}
+
+.menu__icon{
+    height: 2rem;
+    margin-right: 60px;
+}
+
+.lnr-list{
+    width: 32px;
+}
+.lnr-store{
+    width: 32px;
+    height: 32px;
+}
+.lnr-redo{
+    width: 32px;
+    height: 32px;
+}
+.lnr-diamond{
+    width: 32px;
+    height: 32px;
+}
+
+
+/* footer */
+
+.footer{
+    border-top: 1px solid black;
+    padding: 1.5rem;
+}
+
+.footer__description{
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+}
+
+
+@media screen and (max-width: 919px) {
+    /* dispositivos pequeños */
+    .menu__dropdown {
+        display: inline-block;
+        position: relative;
+    }
+    .menu__content {
+        display: none;
+        position: absolute;
+        width: 100%;
+        overflow: auto;
+        box-shadow: 0px 10px 10px 0px rgba(0,0,0,0,6);
+        z-index: 1;
+    }
+    .menu__dropdown:hover .menu__content {
+        display: block;
+    }
+    .menu__content a {
+        display: block;
+        color: #000000;
+        background-color:antiquewhite;
+        padding: 5px;
+    }
+    .menu__content a:hover {
+        color: #FFFFFF;
+        background-color: #00A4BD;
+    }
+}
+
+@media (min-width: 919px) {
+    /* dispositivos grandes */
+    .menu{
+        padding: 1rem 8rem 1rem 8rem;
+    }
+
+    .menu__button{
+        display: none;
+    }
+
+    .menu__dropdown{
+        display: flex;
+        align-items: center;
+    }
+
+    .menu__list{
+        display: inline-block;
+        padding: 0rem 0.5rem 0rem 0.5rem;
+        margin-right: 0.5rem;
+    }
+
+    .menu__list:hover{
+        background-color: rgba(100, 148, 237, 0.521);
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        color: white;
+    }
+
+    .menu--rect{
+        border: 1px solid black;
+        border-radius: 0.5rem;
+        padding: 0.5rem;
+    }
+
+    .main{
+        padding: 2rem 8rem 2rem 8rem; 
+    }
+}
