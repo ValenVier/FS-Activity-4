@@ -1,13 +1,52 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta lang="lang" content="es">
+    <meta name="author" content="ValenVier">
+    <meta name="description" content="Los mejores productos a precios irresistibles">
     <title>Document</title>
-    <link rel="stylesheet" href="styles.css">
+    <!-- hoja de estilos -->
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- favicon -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/favicon.ico">
+    <!-- fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,900;1,100;1,400;1,900&display=swap" rel="stylesheet">
+    <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
 </head>
+
 <body>
-    
+    <header>
+        <!-- El header contendrá el nombre de la empresa y un menú que estará desplegado en dispositivos grandes
+                pero que en dispositivos pequeños se hará dropdown -->
+        <nav class="menu ">
+            <h1 class="menu__tittle">agoodshop</h1>
+            <div class="menu__dropdown">
+                <button class="menu__button">
+                    <svg class="lnr lnr-list menu__icon">
+                        <use xlink:href="#lnr-list"></use>
+                    </svg>
+                </button>
+                <ul class="menu__content">
+                    <li class="menu__list"><a href="#">Tienda</a></li>
+                    <li class="menu__list"><a href="#">Accesorios</a></li>
+                    <li class="menu__list"><a href="#">Soporte</a></li>
+                    <li class="menu__list menu--rect"><a href="#">Contactar</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+
+    </main>
+
+    <footer>
+        <p class="footer__description">© agoodshop</p>
+    </footer>
 </body>
+
 </html>
