@@ -1,52 +1,117 @@
 <!DOCTYPE html>
-<html lang="es">
+    <html lang="es">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta lang="lang" content="es">
-    <meta name="author" content="ValenVier">
-    <meta name="description" content="Los mejores productos a precios irresistibles">
-    <title>Document</title>
-    <!-- hoja de estilos -->
-    <link rel="stylesheet" href="css/styles.css">
-    <!-- favicon -->
-    <link rel="icon" type="image/png" sizes="192x192" href="/images/favicon.ico">
-    <!-- fuentes -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,900;1,100;1,400;1,900&display=swap" rel="stylesheet">
-    <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
-</head>
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta lang="lang" content="es">
+            <meta name="author" content="ValenVier">
+            <meta name="description" content="Los mejores productos a precios irresistibles">
+            <title>Document</title>
+            <!-- hoja de estilos -->
+            <link rel="stylesheet" href="css/reset.css">
+            <link rel="stylesheet" href="css/index.css">
+            <link rel="stylesheet" href="css/header-menu.css">
+            <link rel="stylesheet" href="css/media-queries.css">
+            <link rel="stylesheet" href="css/footer.css">
+            <!-- favicon -->
+            <link rel="icon" type="image/png" sizes="192x192" href="/images/favicon.ico">
+            <!-- fuentes -->
+            <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,900;1,100;1,400;1,900&display=swap" rel="stylesheet">
+            <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
+        </head>
 
-<body>
-    <header>
-        <!-- El header contendrá el nombre de la empresa y un menú que estará desplegado en dispositivos grandes
-                pero que en dispositivos pequeños se hará dropdown -->
-        <nav class="menu ">
-            <h1 class="menu__tittle">agoodshop</h1>
-            <div class="menu__dropdown">
-                <button class="menu__button">
-                    <svg class="lnr lnr-list menu__icon">
-                        <use xlink:href="#lnr-list"></use>
-                    </svg>
-                </button>
-                <ul class="menu__content">
-                    <li class="menu__list"><a href="#">Tienda</a></li>
-                    <li class="menu__list"><a href="#">Accesorios</a></li>
-                    <li class="menu__list"><a href="#">Soporte</a></li>
-                    <li class="menu__list menu--rect"><a href="#">Contactar</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+        <body>
+            <header>
+                <nav class="menu ">
+                    <h1 class="menu__tittle">agoodshop</h1>
+                    <div class="menu__dropdown">
+                        <button class="menu__button">
+                            <svg class="lnr lnr-list menu__icon">
+                                <use xlink:href="#lnr-list"></use>
+                            </svg>
+                        </button>
+                        <ul class="menu__content">
+                            <li class="menu__list"><a href="#">Tienda</a></li>
+                            <li class="menu__list"><a href="#">Accesorios</a></li>
+                            <li class="menu__list"><a href="#">Soporte</a></li>
+                            <li class="menu__list menu--rect"><a href="#">Contactar</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
 
-    <main>
+            <main>
+                <section class="padre">
+                    <section class="products">
+                        <table id="table__products" class="table">
+                            <thead>
+                                <tr class="table__row0">
+                                    <th class="text--normal" colspan="2">Producto</th>
+                                    <th class="text--normal">Cantidad</th>
+                                    <th class="text--normal">Unidad</th>
+                                    <th class="text--normal">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="table__row"> 
+                                    <td class="table__data" colspan="2"><span class="text--product">iPhone 13 PRO</span><span><p>Ref: 0K3QOSOV4V</p></span></td>
+                                    <td class="table__data"><button class="table__button--minus">-</button></label><input class="table__input" type="number" value="0" min="0"><button class="table__button--plus">+</button></td>
+                                    <td class="table__data">938,99€</td>
+                                    <td class="table__data">qq</td>
+                                </tr>
+                                <tr class="table__row">
+                                    <td class="table__data" colspan="2"><span class="text--product">Cargador</span><span><p>Ref: 0S3QOTRV6A</p></span></td>
+                                    <td class="table__data"><button class="table__button--minus">-</button></label><input class="table__input" type="number" value="0" min="0"><button class="table__button--plus">+</button></td>
+                                    <td class="table__data">938,99€</td>
+                                    <td class="table__data">qq</td>
+                                </tr>
+                                <tr class="table__row">
+                                    <td class="table__data" colspan="2"><span class="text--product">Funda Piel</span><span><p>Ref: 3K3PPLOV5N</p></span></td>
+                                    <td class="table__data"><button class="table__button--minus">-</button></label><input class="table__input" type="number" value="0" min="0"><button class="table__button--plus">+</button></td>
+                                    <td class="table__data">938,99€</td>
+                                    <td class="table__data">qq</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                    <section class="total">
+                        <table id="table__total" class="table2">
+                            <thead>
+                                <tr class="table__row0">
+                                    <th class="" colspan="2"><p class="text--left header--total">Total</p></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="table__row2">
+                                    <td class=""><p class="text--left">iPhone 13</p></td>
+                                    <td class=""><p class="text--right">precio</p></td>
+                                </tr>
+                                <tr class="table__row2">
+                                    <td class=""><p class="text--left">Cargador</p></td>
+                                    <td class=""><p class="text--right">precio</p></td>
+                                </tr>
+                                <tr class="table__row2">
+                                    <td class=""><p class="text--left">Funda</p></td>
+                                    <td class=""><p class="text--right">precio</p></td>
+                                </tr>
+                                <tr class="table__row2">
+                                    <td colspan="2"><p class="text--separator">&nbsp;</p></td>
+                                </tr>
+                                <tr class="table__row3">
+                                    <td class=""><p class="text--left">TOTAL</p></td>
+                                    <td class=""><p class="text--right">Precio total</p></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                </section>        
+            </main>
 
-    </main>
+            <footer class="footer">
+                <p class="footer__banner">© agoodshop</p>
+            </footer>
+        </body>
 
-    <footer>
-        <p class="footer__description">© agoodshop</p>
-    </footer>
-</body>
-
-</html>
+    </html>

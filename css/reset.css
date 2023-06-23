@@ -1,0 +1,53 @@
+/* reset */
+*{
+    margin: 0rem 0rem 0rem 0rem;
+    padding: 0rem 0rem 0rem 0rem;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    color: black;
+    font-size: 1rem;
+}
+
+body{
+    position: relative;
+}
+
+li{
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+button{
+    background: none;
+    border: none;
+}
+
+img{
+    max-width: 100%;
+}
+
+/* Eliminar las flechas de control del input de tipo number */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+.lnr-list{
+    width: 32px;
+}
+.lnr-store{
+    width: 32px;
+    height: 32px;
+}
+.lnr-redo{
+    width: 32px;
+    height: 32px;
+}
+.lnr-diamond{
+    width: 32px;
+    height: 32px;
+}
