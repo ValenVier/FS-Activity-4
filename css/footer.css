@@ -1,0 +1,13 @@
+/* footer */
+
+.footer{
+    margin-top: 5rem;
+    border-top: 1px solid black;
+    padding: 1.5rem;
+}
+
+.footer__banner{
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+}

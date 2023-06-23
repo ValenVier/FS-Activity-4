@@ -1,0 +1,102 @@
+/* main */
+.padre{
+    display: inline-block;
+    width: 100%;
+    padding: 0em 2rem 0rem 5rem;
+}
+.products{
+   display: inline-block;
+   width: 65%;
+   vertical-align: top;
+   padding-right: 2rem;
+}
+.total{
+    display: inline-block;
+    width: 34%;
+    vertical-align: top;
+    background-color: rgb(238, 238, 238);
+    
+}
+.table{
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-style:hidden;
+}
+
+.table td {
+    border-bottom: rgb(209, 208, 208) 1px solid;
+}
+
+.table th {
+    border-bottom: rgb(77, 75, 75) 1px solid;
+}
+
+.table2{
+    width: 100%;
+    table-layout: fixed;
+    padding: 1rem 1.5rem 0rem 1.5rem;
+}
+
+.table__row{
+    height: 6.5rem;
+} 
+
+.table__row0{
+    height: 3rem;
+} 
+
+.text--left{
+    text-align: left;
+    padding-left: 3rem;
+}
+
+.text--right{
+    text-align: right;
+    padding-right: 3rem;
+}
+
+.table__row2{
+    height: 2.2rem;
+} 
+.text--separator{
+    font-size: 0.5rem;
+    border-bottom: rgb(77, 75, 75) 1px solid;
+}
+.table__row3{
+    height: 4rem;
+} 
+
+.table__data{
+    text-align: center;
+}
+
+.table__input{
+    width: 3rem;
+    height: 3rem;
+    text-align: center;
+    border-radius: 20%;
+}
+
+.table__button--minus{
+    margin-right: 1rem;
+    font-size: 1.5rem;
+}
+
+.table__button--plus{
+    margin-left: 1rem;
+    font-size: 1.5rem;
+}
+
+.header--total{
+    font-size: 1.5rem;
+}
+
+.text--product{
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.text--normal{
+    font-weight: normal;
+}
