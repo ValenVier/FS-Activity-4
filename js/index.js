@@ -25,7 +25,7 @@ class Carrito {
 
   actualizarUnidades(sku, unidades) {
     // Actualiza el número de unidades que se quieren comprar de un producto
-    let a = this.obtenerInformacionProducto(sku);
+    const a = this.obtenerInformacionProducto(sku);
     a.quantity = unidades;
     
     this.obtenerCarrito();
@@ -48,17 +48,15 @@ class Carrito {
     this.#carrito.products.forEach(product => {
       b += Number(product.price) * Number(product.quantity);
     });
-    this.#carrito.total = b;
-    createTotalTable(this.#carrito);
+    this.#carrito.total = b > 0 ? b.toFixed(2)+this.#currency : 0+this.#currency;
+    actualizarCarrito(this.#carrito);
   }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-
   fetch("https://jsonblob.com/api/jsonBlob/1122186662649282560")
   .then(res => res.json())
   .then(init)
-  
 })
 
 const init = (obj) => {
@@ -92,20 +90,17 @@ function operar (token,elem,obj,carrito,...val) {
   if (token){
     ref = elem.SKU;
     precioTotal = Number(val[0]) * Number(elem.price)
-    val[0] < 0 || val[0] === '' ? value = 0 : value = val[0];
-    document.getElementById('input'+ref).setAttribute('value',value.toString());
-    console.log(document.getElementById('input'+ref).getAttribute('value',value.toString()))
-    
+    val[0] < 0 || val[0] === '' ? value = 0 : val[0][0] === '0' ? value = val[0].slice(1) : value = val[0];
+    document.getElementById('input'+ref).value = value;    
   }else{
     ref = elem.target.getAttribute('data-id');
     const oper = elem.target.getAttribute('data-oper')
   
-    value = Number(document.getElementById('input'+ref).getAttribute('value'));
+    value = Number(document.getElementById('input'+ref).value);
     oper === 'plus' ? value++ : value !== 0 ? value-- : value = 0 ;
-    console.log(value)
-    document.getElementById('input'+ref).setAttribute('value',value);
+    document.getElementById('input'+ref).value = value;
     
-    producto = obj.products.find(product => product.SKU == ref);
+    producto = obj.products.find(product => product.SKU === ref);
     precioTotal = value * Number(producto.price);
   } 
 
@@ -134,7 +129,7 @@ function createProductsTable (obj) {
     const th = document.createElement('th');
     th.innerHTML = heading;
     th.classList.add('text--normal');
-    if(a==0){
+    if(a===0){
       th.setAttribute('colspan','2');
     }
     trh.appendChild(th);
@@ -211,21 +206,17 @@ function createButton(ref){
   return td;
 }
 
-function calculateTotal(){
-
-}
-
 function createTotalTable(obj){
-  console.log(obj)
   let table = document.createElement('table');
   table.classList.add('table2');
   table.setAttribute('id','table__total');
   let thead = document.createElement('thead');
   let tbody = document.createElement('tbody');
+  tbody.setAttribute('id','total__tbody');
   table.appendChild(thead);
   table.appendChild(tbody);
 
-  document.getElementById('total2').appendChild(table);
+  document.getElementById('total').appendChild(table);
 
   const trh = document.createElement('tr');
   trh.classList.add('table__row0');
@@ -237,4 +228,74 @@ function createTotalTable(obj){
   trh.appendChild(th);
   thead.appendChild(trh);
 
+  separador()
+  total('0€')
+}
+
+function actualizarCarrito(carrito){
+  const tbody = document.getElementById('total__tbody');
+  tbody.innerHTML = '';
+  carrito.products.forEach(element => {
+    if(element.quantity > 0) {
+      let precio = (Number(element.price)*Number(element.quantity)).toFixed(2);
+      precio > 0 ? precio = precio+carrito.currency : precio = "0" + carrito.currency;
+      actualizarProductosCarrito(element.title,element.quantity,precio);
+    }
+  });
+  separador();
+  total(carrito.total);
+}
+
+function actualizarProductosCarrito(title, quantity, precio){
+  const tbody = document.getElementById('total__tbody');
+ 
+  const trTot = document.createElement('tr');
+  trTot.classList.add('table__row2');
+  const tdTot1 = document.createElement('td');
+  const p1 = document.createElement('p');
+  p1.classList.add('text--left');
+  p1.innerHTML = title +' ('+quantity+')';
+  tdTot1.appendChild(p1);
+  const tdTot2 = document.createElement('td');
+  const p2 = document.createElement('p');
+  p2.classList.add('text--right');
+  p2.innerHTML = precio;
+  tdTot2.appendChild(p2);
+  
+  trTot.appendChild(tdTot1);
+  trTot.appendChild(tdTot2);
+  tbody.appendChild(trTot);
+}
+
+function separador(){
+  const tbody = document.getElementById('total__tbody');
+  const trd = document.createElement('tr');
+  trd.classList.add('table__row2');
+  const td = document.createElement('td');
+  td.classList.add('text--separator');
+  td.setAttribute('colspan','2');
+  td.innerHTML = '&nbsp;';
+  
+  trd.appendChild(td);
+  tbody.appendChild(trd);
+}
+
+function total(tot){
+  const tbody = document.getElementById('total__tbody');
+  const trTot = document.createElement('tr');
+  trTot.classList.add('table__row3');
+  const tdTot1 = document.createElement('td');
+  const p1 = document.createElement('p');
+  p1.classList.add('text--left');
+  p1.innerHTML = 'Total';
+  tdTot1.appendChild(p1);
+  const tdTot2 = document.createElement('td');
+  const p2 = document.createElement('p');
+  p2.classList.add('text--right');
+  p2.innerHTML = tot;
+  tdTot2.appendChild(p2);
+  
+  trTot.appendChild(tdTot1);
+  trTot.appendChild(tdTot2);
+  tbody.appendChild(trTot);
 }
