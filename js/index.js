@@ -1,5 +1,5 @@
 class Carrito {
-  #productos
+  #productos 
   #currency
   #carrito
 
@@ -25,6 +25,7 @@ class Carrito {
 
   actualizarUnidades(sku, unidades) {
     // Actualiza el número de unidades que se quieren comprar de un producto
+    //Update the number of units you want to buy of a product. 
     const a = this.obtenerInformacionProducto(sku);
     a.quantity = unidades;
     
@@ -33,6 +34,7 @@ class Carrito {
 
   obtenerInformacionProducto(sku) {
     // Devuelve los datos de un producto además de las unidades seleccionadas
+    // Returns the data of a product in addition to the selected units.
     let a;
     this.#carrito.products.forEach(product => {
       if(product.SKU === sku){
@@ -44,6 +46,7 @@ class Carrito {
 
   obtenerCarrito() {
     // Devuelve información de los productos añadidos al carrito y el total calculado
+    // Returns information about the products added to the cart and the calculated total.
     let b=0;
     this.#carrito.products.forEach(product => {
       b += Number(product.price) * Number(product.quantity);
@@ -53,19 +56,29 @@ class Carrito {
   }
 }
 
+// Empiezo a construir la página cuando se haya cargado el DOM
+// I start building the page when the DOM is loaded.
 document.addEventListener('DOMContentLoaded', () => {
+  // Llamada asíncrona a la API
+  //Asynchronous API call
   fetch("https://jsonblob.com/api/jsonBlob/1122186662649282560")
   .then(res => res.json())
   .then(init)
 })
 
 const init = (obj) => {
+  // Llamo a los creadores de las tablas del carrito y de los productos
+  // I call the makers of the cart and product tables
   createProductsTable(obj);
   createTotalTable(obj);
 
   const carrito = new Carrito(obj);
 
+  // Pongo escuchadores
+  // I set listeners
   let token;
+  // Token para saber si el cambio proviene de un botón o del teclado
+  // Token to find out if the change comes from a button or from the keyboard
   document.querySelectorAll('.table__button--minus').forEach(elem => elem.addEventListener("click",(elem) => {
     operar(token=false,elem,obj,carrito)
   }));
@@ -73,6 +86,8 @@ const init = (obj) => {
     operar(token=false,elem,obj,carrito)
   }));
 
+  // Recojo información que mete el usuario en el input
+  // I collect information entered by the user in the input
   obj.products.forEach(element => {
     const id = document.getElementById('input'+element.SKU)
     id.oninput = function(){
@@ -83,6 +98,8 @@ const init = (obj) => {
 }
 
 function operar (token,elem,obj,carrito,...val) {
+  // Cambiar el valor del input y del precio en la tabla de productos
+  // Change input and price value in the product table
   let ref = '';
   let value = 0;
   let producto = '';
@@ -109,6 +126,8 @@ function operar (token,elem,obj,carrito,...val) {
 }
 
 function createProductsTable (obj) {
+  // Creo tabla de productos
+  // I create product table
   const listadoCabecera = ['Producto', 'Cantidad', 'Unidad', 'Total'];
 
   let table = document.createElement('table');
@@ -124,6 +143,7 @@ function createProductsTable (obj) {
   const trh = document.createElement('tr');
   trh.classList.add('table__row0');
 
+  // Cabecera -- Table Header
   let a=0;
   listadoCabecera.forEach(heading => {
     const th = document.createElement('th');
@@ -137,6 +157,7 @@ function createProductsTable (obj) {
   })
   thead.appendChild(trh);
 
+  // Lista de productos -- Products list
   obj.products.forEach(product => {
     const trd = document.createElement('tr');
     trd.classList.add('table__row');
@@ -158,6 +179,7 @@ function createProductsTable (obj) {
 }
 
 function createProduct(prod, ref){
+  // Crear cada fila de producto -- Create each product row
   const span1 = document.createElement('span');
   span1.classList.add('text--product');
   span1.innerHTML = prod;
@@ -178,6 +200,7 @@ function createProduct(prod, ref){
 }
 
 function createButton(ref){
+  // Crear los botones y el input de cada fila -- Create the buttons and input for each row
   const buttonMinus = document.createElement('button');
   buttonMinus.classList.add('table__button--minus');
   buttonMinus.setAttribute('data-id',ref);
@@ -207,6 +230,7 @@ function createButton(ref){
 }
 
 function createTotalTable(obj){
+  //Crear carrito inicial -- Create initial cart
   let table = document.createElement('table');
   table.classList.add('table2');
   table.setAttribute('id','table__total');
@@ -233,6 +257,8 @@ function createTotalTable(obj){
 }
 
 function actualizarCarrito(carrito){
+  // Modificar carrito con las cantidades de cada producto
+  // Modify cart with the quantities of each product
   const tbody = document.getElementById('total__tbody');
   tbody.innerHTML = '';
   carrito.products.forEach(element => {
@@ -247,6 +273,7 @@ function actualizarCarrito(carrito){
 }
 
 function actualizarProductosCarrito(title, quantity, precio){
+  // Añade los productos con su precio total -- Add the products with their total price
   const tbody = document.getElementById('total__tbody');
  
   const trTot = document.createElement('tr');
@@ -268,6 +295,7 @@ function actualizarProductosCarrito(title, quantity, precio){
 }
 
 function separador(){
+  // fila para mostrar el borde -- row to show the border
   const tbody = document.getElementById('total__tbody');
   const trd = document.createElement('tr');
   trd.classList.add('table__row2');
@@ -281,6 +309,7 @@ function separador(){
 }
 
 function total(tot){
+  // Fila del total -- Total row
   const tbody = document.getElementById('total__tbody');
   const trTot = document.createElement('tr');
   trTot.classList.add('table__row3');
