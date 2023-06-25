@@ -100,3 +100,7 @@
 .text--normal{
     font-weight: normal;
 }
+
+.table__button--minus:hover, .table__button--plus:hover{
+    color: rgb(252, 66, 190);
+}

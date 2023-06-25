@@ -1,79 +1,240 @@
-/* 
-{
-
-"currency":"€",
-
-"products":[
-
-{
-
-"SKU":"0K3QOSOV4V",
-
-"title":"iFhone13Pro",
-
-"price":"938.99"
-
-},
-
-{
-
-"SKU":"TGD5XORY1L",
-
-"title":"Cargador",
-
-"price":"49.99"
-
-},
-
-{
-
-"SKU":"IOKW9BQ9F3",
-
-"title":"Fundadepiel",
-
-"price":"79.99"
-
-}
-
-]
-
-}
-*/
-
-/* 
-const pintarPeople = (people) => {
-
-  console.log(people)
-
-}
-
-
-
-fetch("swapi.dev/api/people")
-
- .then((res) => res.json())
-
- .then(pintarPeople) 
-*/
-
-
-class Carrito{
+class Carrito {
   #productos
+  #currency
   #carrito
 
-  actualizarUnidades(sku, unidades){
-
+  constructor(obj) {
+    this.#productos = obj.products;
+    this.#currency = obj.currency;
+    this.prodArray = [];
+    this.#productos.forEach(element => {
+      const a = {
+        "SKU": element.SKU,
+        "title": element.title,
+        "price": element.price,
+        "quantity": "0"
+      }
+      this.prodArray.push(a);
+    });
+    this.#carrito = {
+      "total": "0",
+      "currency": this.#currency,
+      "products":this.prodArray
+    }
   }
+
+  actualizarUnidades(sku, unidades) {
+    // Actualiza el número de unidades que se quieren comprar de un producto
+    let a = this.obtenerInformacionProducto(sku);
+    a.quantity = unidades;
+    
+    this.obtenerCarrito();
+  }
+
+  obtenerInformacionProducto(sku) {
+    // Devuelve los datos de un producto además de las unidades seleccionadas
+    let a;
+    this.#carrito.products.forEach(product => {
+      if(product.SKU === sku){
+        a=product;
+      }      
+    });
+    return a;
+  }
+
+  obtenerCarrito() {
+    // Devuelve información de los productos añadidos al carrito y el total calculado
+    let b=0;
+    this.#carrito.products.forEach(product => {
+      b += Number(product.price) * Number(product.quantity);
+    });
+    this.#carrito.total = b;
+    createTotalTable(this.#carrito);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  fetch("https://jsonblob.com/api/jsonBlob/1122186662649282560")
+  .then(res => res.json())
+  .then(init)
+  
+})
+
+const init = (obj) => {
+  createProductsTable(obj);
+  createTotalTable(obj);
+
+  const carrito = new Carrito(obj);
+
+  let token;
+  document.querySelectorAll('.table__button--minus').forEach(elem => elem.addEventListener("click",(elem) => {
+    operar(token=false,elem,obj,carrito)
+  }));
+  document.querySelectorAll('.table__button--plus').forEach(elem => elem.addEventListener("click",(elem) => {
+    operar(token=false,elem,obj,carrito)
+  }));
+
+  obj.products.forEach(element => {
+    const id = document.getElementById('input'+element.SKU)
+    id.oninput = function(){
+      operar(token=true,element,obj,carrito,value = id.value);
+    }
+  });
+  
+}
+
+function operar (token,elem,obj,carrito,...val) {
+  let ref = '';
+  let value = 0;
+  let producto = '';
+  let precioTotal = 0;
+  if (token){
+    ref = elem.SKU;
+    precioTotal = Number(val[0]) * Number(elem.price)
+    val[0] < 0 || val[0] === '' ? value = 0 : value = val[0];
+    document.getElementById('input'+ref).setAttribute('value',value.toString());
+    console.log(document.getElementById('input'+ref).getAttribute('value',value.toString()))
+    
+  }else{
+    ref = elem.target.getAttribute('data-id');
+    const oper = elem.target.getAttribute('data-oper')
+  
+    value = Number(document.getElementById('input'+ref).getAttribute('value'));
+    oper === 'plus' ? value++ : value !== 0 ? value-- : value = 0 ;
+    console.log(value)
+    document.getElementById('input'+ref).setAttribute('value',value);
+    
+    producto = obj.products.find(product => product.SKU == ref);
+    precioTotal = value * Number(producto.price);
+  } 
+
+  document.querySelector('[data-id=total'+ref+']').innerHTML = precioTotal > 0 ? precioTotal.toFixed(2)+obj.currency : 0+obj.currency;
+  carrito.actualizarUnidades(ref, value);
+}
+
+function createProductsTable (obj) {
+  const listadoCabecera = ['Producto', 'Cantidad', 'Unidad', 'Total'];
+
+  let table = document.createElement('table');
+  table.classList.add('table');
+  table.setAttribute('id','table__products');
+  let thead = document.createElement('thead');
+  let tbody = document.createElement('tbody');
+  table.appendChild(thead);
+  table.appendChild(tbody);
+
+  document.getElementById('products').appendChild(table);
+  
+  const trh = document.createElement('tr');
+  trh.classList.add('table__row0');
+
+  let a=0;
+  listadoCabecera.forEach(heading => {
+    const th = document.createElement('th');
+    th.innerHTML = heading;
+    th.classList.add('text--normal');
+    if(a==0){
+      th.setAttribute('colspan','2');
+    }
+    trh.appendChild(th);
+    a++;
+  })
+  thead.appendChild(trh);
+
+  obj.products.forEach(product => {
+    const trd = document.createElement('tr');
+    trd.classList.add('table__row');
+    const td0 = createProduct(product.title, product.SKU);
+    const td1 = createButton(product.SKU);
+    const td2 = document.createElement('td');
+    td2.classList.add('table__data');
+    const td3 = document.createElement('td');
+    td3.classList.add('table__data');
+    td3.setAttribute('data-id','total'+product.SKU);;
+    td2.innerHTML = product.price + obj.currency;
+    td3.innerHTML = 0+obj.currency;
+    trd.appendChild(td0);
+    trd.appendChild(td1);
+    trd.appendChild(td2);
+    trd.appendChild(td3);
+    tbody.appendChild(trd);
+  }) 
+}
+
+function createProduct(prod, ref){
+  const span1 = document.createElement('span');
+  span1.classList.add('text--product');
+  span1.innerHTML = prod;
+
+  const span2 = document.createElement('span');
+  const p = document.createElement('p');
+  p.innerHTML = `Ref: ${ref}`;
+
+  span2.appendChild(p);
+
+  const td = document.createElement('td');
+  td.classList.add('table__data');
+  td.setAttribute('colspan','2');
+  td.appendChild(span1);
+  td.appendChild(span2); 
+  
+  return td;
+}
+
+function createButton(ref){
+  const buttonMinus = document.createElement('button');
+  buttonMinus.classList.add('table__button--minus');
+  buttonMinus.setAttribute('data-id',ref);
+  buttonMinus.setAttribute('data-oper','minus');
+  buttonMinus.innerHTML = '-';
+  
+  const buttonPlus = document.createElement('button');
+  buttonPlus.classList.add('table__button--plus');
+  buttonPlus.setAttribute('data-id',ref);
+  buttonPlus.setAttribute('data-oper','plus');
+  buttonPlus.innerHTML = '+';
+
+  const input = document.createElement('input');
+  input.classList.add('table__input');
+  input.setAttribute('id','input'+ref);
+  input.setAttribute('type','number');
+  input.setAttribute('value','0');
+  input.setAttribute('min','0');
+
+  const td = document.createElement('td');
+  td.classList.add('table__data');
+  td.appendChild(buttonMinus);
+  td.appendChild(input);
+  td.appendChild(buttonPlus);
+  
+  return td;
+}
+
+function calculateTotal(){
 
 }
 
-fetch("url")
-  .then(res=>res.json())
-  .then((obj)=> {
-    cosa = obj
-    init()
-  });
+function createTotalTable(obj){
+  console.log(obj)
+  let table = document.createElement('table');
+  table.classList.add('table2');
+  table.setAttribute('id','table__total');
+  let thead = document.createElement('thead');
+  let tbody = document.createElement('tbody');
+  table.appendChild(thead);
+  table.appendChild(tbody);
 
-  const init = () => {
-    
-  }
+  document.getElementById('total2').appendChild(table);
+
+  const trh = document.createElement('tr');
+  trh.classList.add('table__row0');
+  const th = document.createElement('th');
+  th.classList.add('text--left','header--total');
+  th.setAttribute('colspan','2');
+  th.innerHTML = 'Total';
+
+  trh.appendChild(th);
+  thead.appendChild(trh);
+
+}
